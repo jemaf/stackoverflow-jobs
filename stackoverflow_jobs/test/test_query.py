@@ -7,24 +7,24 @@
 from unittest import TestCase
 
 from stackoverflow_jobs.src.query import Query
-from stackoverflow_jobs.src.filters import Description
+from stackoverflow_jobs.src.filters import Description, Location
 
 
 class TestQuery(TestCase):
 
     def test_queryWithoutParameters(self):
         q = Query()
-
         self.assertEquals(q.build_query(),
                           "https://stackoverflow.com/jobs/feed")
 
     def test_queryWithDescription(self):
         q = Query() + Description("Example Description")
 
-        self.assertIn("?q=Example+Description", q.build_query())
+        self.assertIn("q=Example+Description", q.build_query())
 
     def test_queryWithLocation(self):
-        self.skipTest("To be implemented")
+        q = Query() + Location("San Francisco")
+        self.assertIn("l=San+Francisco&u=Km&d=20", q.build_query())
 
     def test_queryWithRemoteFlag(self):
         self.skipTest("To be implemented")

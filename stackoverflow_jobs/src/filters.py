@@ -4,6 +4,8 @@
  Copyright (c) 2019 João Eduardo Montandon
 """
 
+from enum import Enum, auto
+
 
 class Filter:
 
@@ -17,5 +19,24 @@ class Description(Filter):
         self.text = text
 
     def build(self):
-        tokens = self.text.split(" ")
-        return "q={}".format("+".join(tokens))
+        query_text = self.text.replace(" ", "+")
+        return "q={}".format(query_text)
+
+
+class Location(Filter):
+
+    class Range(Enum):
+        FIVE = 5
+        TEN = 10
+        TWENTY = 20
+        FIFITY = 50
+        ONEHUNDRED = 100
+
+    def __init__(self, text="", distance=Range.TWENTY):
+        self.text = text
+        self.range = distance
+
+    def build(self):
+        query_text = self.text.replace(" ", "+")
+
+        return "l={}&u=Km&d={}".format(query_text, self.range.value)
