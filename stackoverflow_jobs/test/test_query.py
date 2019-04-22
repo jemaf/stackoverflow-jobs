@@ -7,7 +7,8 @@
 from unittest import TestCase
 
 from stackoverflow_jobs.src.query import Query
-from stackoverflow_jobs.src.filters import Description, Location, Remote
+from stackoverflow_jobs.src.filters import (Description, Location, Remote,
+                                            Technologies)
 
 
 class TestQuery(TestCase):
@@ -31,10 +32,22 @@ class TestQuery(TestCase):
         self.assertIn("r=true", q.build_query())
 
     def test_queryWithLikedTechs(self):
-        self.skipTest("To be implemented")
+        liked_techs = ["html", "c#", "java"]
+        q = Query() + Technologies(liked=liked_techs)
+        self.assertIn("tl=html+c#+java", q.build_query())
 
     def test_queryWithDislikedTechs(self):
-        self.skipTest("To be implemented")
+        disliked_techs = ["php", "regex", "objective-c"]
+        q = Query() + Technologies(disliked=disliked_techs)
+        self.assertIn("td=php+regex+objective-c", q.build_query())
+
+    def test_queryWithLikedAndDislikedTechs(self):
+        liked_techs = ["html", "c#", "java"]
+        disliked_techs = ["php", "regex", "objective-c"]
+
+        q = Query() + Technologies(liked=liked_techs, disliked=disliked_techs)
+        self.assertIn("tl=html+c#+java&td=php+regex+objective-c",
+                      q.build_query())
 
     def test_queryWithCompensation(self):
         self.skipTest("To be implemented")

@@ -46,3 +46,22 @@ class Remote(Filter):
 
     def build(self):
         return "r=true"
+
+
+class Technologies(Filter):
+
+    def __init__(self, liked=[], disliked=[]):
+        self.liked = liked
+        self.disliked = disliked
+
+    def build(self):
+        queries = []
+
+        if self.liked != []:
+            liked_techs = "+".join(self.liked)
+            queries.append("tl={}".format(liked_techs))
+        if self.disliked != []:
+            disliked_techs = "+".join(self.disliked)
+            queries.append("td={}".format(disliked_techs))
+
+        return "&".join(queries)
