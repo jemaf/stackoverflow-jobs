@@ -40,3 +40,9 @@ class Location(Filter):
         query_text = self.text.replace(" ", "+")
 
         return "l={}&u=Km&d={}".format(query_text, self.range.value)
+
+
+class Remote(Filter):
+
+    def build(self):
+        return "r=true"

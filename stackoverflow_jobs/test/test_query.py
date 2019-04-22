@@ -7,7 +7,7 @@
 from unittest import TestCase
 
 from stackoverflow_jobs.src.query import Query
-from stackoverflow_jobs.src.filters import Description, Location
+from stackoverflow_jobs.src.filters import Description, Location, Remote
 
 
 class TestQuery(TestCase):
@@ -27,7 +27,8 @@ class TestQuery(TestCase):
         self.assertIn("l=San+Francisco&u=Km&d=20", q.build_query())
 
     def test_queryWithRemoteFlag(self):
-        self.skipTest("To be implemented")
+        q = Query() + Remote()
+        self.assertIn("r=true", q.build_query())
 
     def test_queryWithLikedTechs(self):
         self.skipTest("To be implemented")
