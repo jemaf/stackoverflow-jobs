@@ -65,3 +65,33 @@ class Technologies(Filter):
             queries.append("td={}".format(disliked_techs))
 
         return "&".join(queries)
+
+
+class Salary(Filter):
+
+    class Coin(Enum):
+        BRL = "BRL"
+        USD = "USD"
+        EUR = "EUR"
+        GBP = "GBP"
+        CAD = "CAD"
+        AUD = "AUD"
+        INR = "INR"
+        SEK = "SEK"
+        PLN = "PLN"
+        CHF = "CHF"
+        DKK = "DKK"
+        NZD = "NZD"
+
+    def __init__(self, salary, coin):
+        self.salary = salary
+        self.coin = coin
+
+    def build(self):
+        return "s={}&c={}".format(self.salary, self.coin.value)
+
+
+class Equity(Filter):
+
+    def build(self):
+        return "e=true"

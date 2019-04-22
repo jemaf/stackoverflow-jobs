@@ -8,7 +8,7 @@ from unittest import TestCase
 
 from stackoverflow_jobs.src.query import Query
 from stackoverflow_jobs.src.filters import (Description, Location, Remote,
-                                            Technologies)
+                                            Technologies, Salary, Equity)
 
 
 class TestQuery(TestCase):
@@ -49,11 +49,13 @@ class TestQuery(TestCase):
         self.assertIn("tl=html+c#+java&td=php+regex+objective-c",
                       q.build_query())
 
-    def test_queryWithCompensation(self):
-        self.skipTest("To be implemented")
+    def test_queryWithMonetaryCompensation(self):
+        q = Query() + Salary(8880, Salary.Coin.BRL)
+        self.assertIn("s=8880&c=BRL", q.build_query())
 
-    def test_queryWithCompensationEquity(self):
-        self.skipTest("To be implemented")
+    def test_queryWithEquityCompensation(self):
+        q = Query() + Equity()
+        self.assertIn("e=true", q.build_query())
 
     def test_queryWithPerks(self):
         self.skipTest("To be implemented")
