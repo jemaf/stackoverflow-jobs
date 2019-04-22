@@ -1,6 +1,13 @@
+"""
+ Created on Mon Apr 22 2019
+
+ Copyright (c) 2019 João Eduardo Montandon
+"""
+
 from unittest import TestCase
 
 from stackoverflow_jobs.src.query import Query
+from stackoverflow_jobs.src.filters import Description
 
 
 class TestQuery(TestCase):
@@ -12,7 +19,9 @@ class TestQuery(TestCase):
                           "https://stackoverflow.com/jobs/feed")
 
     def test_queryWithDescription(self):
-        self.skipTest("To be implemented")
+        q = Query() + Description("Example Description")
+
+        self.assertIn("?q=Example+Description", q.build_query())
 
     def test_queryWithLocation(self):
         self.skipTest("To be implemented")
