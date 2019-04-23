@@ -11,7 +11,7 @@ from stackoverflow_jobs.src.filters import (Description, Location, Remote,
                                             Technologies, Salary, Equity,
                                             ExperienceLevel, Role, JobType,
                                             JobFeature, Companies, Industry,
-                                            VisaSponsor, Relocation)
+                                            VisaSponsor, Relocation, Perk)
 
 
 class TestQuery(TestCase):
@@ -69,7 +69,12 @@ class TestQuery(TestCase):
         self.assertIn("t=true", q.build_query())
 
     def test_queryWithPerks(self):
-        self.skipTest("To be implemented")
+        perks = [Perk.Type.EDUCATION, Perk.Type.VACATION,
+                 Perk.Type.CULTURE, Perk.Type.GYM]
+        q = Query() + Perk(perks)
+        self.assertIn("b=Education&b=GenerousVacation&"
+                      "b=GreatEngineeringCulture&b=GymAndFitness",
+                      q.build_query())
 
     def test_queryWithExperienceLevel(self):
         q = Query() + ExperienceLevel(ExperienceLevel.Level.STUDENT,

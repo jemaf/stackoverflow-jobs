@@ -292,3 +292,19 @@ class Relocation(Filter):
 
     def build(self):
         return "t=true"
+
+
+class Perk(Filter):
+
+    class Type(Enum):
+        EDUCATION = "Education"
+        VACATION = "GenerousVacation"
+        CULTURE = "GreatEngineeringCulture"
+        GYM = "GymAndFitness"
+
+    def __init__(self, perks):
+        self.perks = perks
+
+    def build(self):
+        query_tokens = ["b={}".format(p.value) for p in self.perks]
+        return "&".join(query_tokens)
