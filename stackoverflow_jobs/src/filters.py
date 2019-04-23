@@ -175,3 +175,22 @@ class JobFeature(Filter):
     def build(self):
         query_tokens = ["b={}".format(f.value) for f in self.features]
         return "&".join(query_tokens)
+
+
+class Companies(Filter):
+
+    def __init__(self, to_include=[], to_exclude=[]):
+        self.to_include = to_include
+        self.to_exclude = to_exclude
+
+    def build(self):
+        queries = []
+
+        if self.to_include != []:
+            included = ";".join([c.replace(" ", "+") for c in self.to_include])
+            queries.append("cl={}".format(included))
+        if self.to_exclude != []:
+            excluded = ";".join([c.replace(" ", "+") for c in self.to_exclude])
+            queries.append("cd={}".format(excluded))
+
+        return "&".join(queries)

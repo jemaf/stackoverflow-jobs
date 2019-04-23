@@ -9,7 +9,8 @@ from unittest import TestCase
 from stackoverflow_jobs.src.query import Query
 from stackoverflow_jobs.src.filters import (Description, Location, Remote,
                                             Technologies, Salary, Equity,
-                                            ExperienceLevel, Role, JobType, JobFeature)
+                                            ExperienceLevel, Role, JobType,
+                                            JobFeature, Companies)
 
 
 class TestQuery(TestCase):
@@ -90,10 +91,14 @@ class TestQuery(TestCase):
         self.assertIn("b=FirstApplicants&b=HighResponse", q.build_query())
 
     def test_queryWithCompaniesToInclude(self):
-        self.skipTest("To be implemented")
+        companies = ["Initech", "Micro Benefits"]
+        q = Query() + Companies(to_include=companies)
+        self.assertIn("cl=Initech;Micro+Benefits", q.build_query())
 
     def test_queryWithCompaniesToExclude(self):
-        self.skipTest("To be implemented")
+        companies = ["BalaBit", "Moulin Test"]
+        q = Query() + Companies(to_exclude=companies)
+        self.assertIn("cd=BalaBit;Moulin+Test", q.build_query())
 
     def test_queryWithIndustryType(self):
         self.skipTest("To be implemented")
