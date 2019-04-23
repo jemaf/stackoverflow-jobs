@@ -194,3 +194,89 @@ class Companies(Filter):
             queries.append("cd={}".format(excluded))
 
         return "&".join(queries)
+
+
+class Industry(Filter):
+
+    class Type(Enum):
+        ACCOUNTING = "Accounting"
+        ADVERTISING = "Advertising"
+        AEROSPACE = "Aerospace"
+        AGRICULTURE = "Agriculture"
+        ARCHITECTURE = "Architecture"
+        ARTS = "Arts"
+        AUTOMOTIVE = "Automotive"
+        BEAUTY = "Beauty"
+        BUSINESS_INTELLIGENCE = "Business Intelligence"
+        CHARITY = "Charity"
+        CHEMICALS = "Chemicals"
+        COLLABORATION_TOOLS = "Collaboration Tools"
+        COMMUNICATIONS = "Communications"
+        CONSTRUCTION = "Construction"
+        CONSULTING = "Consulting"
+        CUSTOMER_SERVICE = "Customer Service"
+        DATA_ANALYTICS = "Data & Analytics"
+        DATING = "Dating"
+        DESIGN = "Design"
+        EDUCATION = "Education"
+        ELECTRONICS = "Electronics"
+        ENERGY_UTILITIES = "Energy & Utilities"
+        ENTERPRISE = "Enterprise"
+        ENTERTAINMENT = "Entertainment"
+        EVENTS = "Events"
+        FASHION = "Fashion"
+        FINANCE = "Finance"
+        FOOD_BEVERAGE = "Food & Beverage"
+        GAMBLING = "Gambling"
+        GAMING = "Gaming"
+        GEOPHYSICIS = "Geophysicis"
+        GOVERNMENT = "Government"
+        HARDWARE = "Hardware"
+        HEALTH_FITNESS = "Health & Fitness"
+        HEALTH_CARE = "Health Care"
+        HOME_GARDEN = "Home and Garden"
+        HOSPITALITY = "Hospitality"
+        INFORMATION_TECHNOLOGY = "Information Technology"
+        INSURANCE = "Insurance"
+        LANGUAGE_SERVICES = "Language Services"
+        LEGAL = "Legal"
+        LIFE_SCIENCES = "Life Sciences"
+        LOCATION_SERVICES = "Location Services"
+        LOGISTICS_DISTRIBUTION = "Logistics & Distribution"
+        MANUFACTURING = "Manufacturing"
+        MARKETING = "Marketing"
+        MEDIA = "Media"
+        METEOROLOGY = "Meteorology"
+        MILITARY = "Military"
+        MOBILE = "Mobile"
+        PETS = "Pets"
+        PLATFORMS = "Platforms"
+        POLITICS = "Politics"
+        PRICE_COMPARISON = "Price Comparison"
+        PRINTING = "Printing"
+        PUBLISHING = "Publishing"
+        Q_A = "Q & A"
+        REAL_ESTATE = "Real Estate"
+        RECREATION_LEISURE = "Recreation & Leisure"
+        RECRUITING = "Recruiting"
+        RETAIL = "Retail"
+        REVIEWS = "Reviews"
+        SCIENCE = "Science"
+        SEARCH = "Search"
+        SECURITY = "Security"
+        SOCIAL_MEDIA = "Social Media"
+        SOFTWARE_DEVELOPMENT = "Software Development"
+        SPORTS = "Sports"
+        TELECOMMUNICATIONS = "Telecommunications"
+        TRANSPORTATION = "Transportation"
+        TRAVEL_TOURISM = "Travel & Tourism"
+
+    def __init__(self, industries):
+        self.industries = industries
+
+    def build(self):
+        industry_tokens = [i.value.replace(" ", "+").replace("&", "%26")
+                           for i in self.industries]
+        query_tokens = ["i={}".format(i) for i in industry_tokens]
+
+        return "&".join(query_tokens)

@@ -10,7 +10,7 @@ from stackoverflow_jobs.src.query import Query
 from stackoverflow_jobs.src.filters import (Description, Location, Remote,
                                             Technologies, Salary, Equity,
                                             ExperienceLevel, Role, JobType,
-                                            JobFeature, Companies)
+                                            JobFeature, Companies, Industry)
 
 
 class TestQuery(TestCase):
@@ -100,5 +100,16 @@ class TestQuery(TestCase):
         q = Query() + Companies(to_exclude=companies)
         self.assertIn("cd=BalaBit;Moulin+Test", q.build_query())
 
+    def test_queryWithIncludedAndExcludedCompanies(self):
+        included = ["Initech", "Micro Benefits"]
+        excluded = ["BalaBit", "Moulin Test"]
+        q = Query() + Companies(to_include=included, to_exclude=excluded)
+        self.assertIn("cd=BalaBit;Moulin+Test", q.build_query())
+        self.assertIn("cl=Initech;Micro+Benefits", q.build_query())
+
     def test_queryWithIndustryType(self):
-        self.skipTest("To be implemented")
+        industries = [Industry.Type.ACCOUNTING,
+                      Industry.Type.ARTS, Industry.Type.BUSINESS_INTELLIGENCE]
+        q = Query() + Industry(industries)
+        self.assertIn("i=Accounting&i=Arts&i=Business+Intelligence",
+                      q.build_query())
