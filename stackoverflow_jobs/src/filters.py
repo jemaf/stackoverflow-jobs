@@ -95,3 +95,26 @@ class Equity(Filter):
 
     def build(self):
         return "e=true"
+
+
+class ExperienceLevel(Filter):
+
+    class Level(Enum):
+        STUDENT = "Student"
+        JUNIOR = "Junior"
+        MIDLEVEL = "MidLevel"
+        SENIOR = "Senior"
+        LEAD = "Lead"
+        MANAGER = "Manager"
+
+    def __init__(self, min_level=None, max_level=None):
+        self.min = min_level
+        self.max = max_level
+
+    def build(self):
+        query_tokens = ["c=brl"]
+        if self.min:
+            query_tokens.append("ms={}".format(self.min.value))
+        if self.max:
+            query_tokens.append("mxs={}".format(self.max.value))
+        return "&".join(query_tokens)

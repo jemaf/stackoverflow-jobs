@@ -8,7 +8,8 @@ from unittest import TestCase
 
 from stackoverflow_jobs.src.query import Query
 from stackoverflow_jobs.src.filters import (Description, Location, Remote,
-                                            Technologies, Salary, Equity)
+                                            Technologies, Salary, Equity,
+                                            ExperienceLevel)
 
 
 class TestQuery(TestCase):
@@ -61,7 +62,9 @@ class TestQuery(TestCase):
         self.skipTest("To be implemented")
 
     def test_queryWithExperienceLevel(self):
-        self.skipTest("To be implemented")
+        q = Query() + ExperienceLevel(ExperienceLevel.Level.STUDENT,
+                                      ExperienceLevel.Level.SENIOR)
+        self.assertIn("c=brl&ms=Student&mxs=Senior", q.build_query())
 
     def test_queryWithRoles(self):
         self.skipTest("To be implemented")
