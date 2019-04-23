@@ -4,6 +4,7 @@
  Copyright (c) 2019 João Eduardo Montandon
 """
 
+import requests
 from .filters import Filter
 
 
@@ -24,5 +25,8 @@ class Query:
 
         if self.filters != []:
             q += "?" + "&".join([f.build() for f in self.filters])
-
         return q
+
+    def execute(self):
+        url = self.build_query()
+        return requests.get(url).content
