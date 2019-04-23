@@ -75,7 +75,7 @@ class TestQuery(TestCase):
     def test_queryCannotHaveMoreThanFiveRoles(self):
         roles = [Role.Type.BACKEND, Role.Type.FRONTEND, Role.Type.DATABASE,
                  Role.Type.DESIGN, Role.Type.EMBEDDED, Role.Type.GAME]
-        self.assertRaiss(RuntimeError, Role, roles)
+        self.assertRaises(RuntimeError, Role, roles)
 
     def test_queryWithJobType(self):
         types = [JobType.Type.PERMANENT,
