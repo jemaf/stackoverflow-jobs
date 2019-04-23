@@ -161,3 +161,17 @@ class JobType(Filter):
     def build(self):
         query_tokens = ["j={}".format(t.value) for t in self.types]
         return "&".join(query_tokens)
+
+
+class JobFeature(Filter):
+
+    class Type(Enum):
+        FIRST_APPLICANTS = "FirstApplicants"
+        HIGH_RESPONSE_RATE = "HighResponse"
+
+    def __init__(self, features):
+        self.features = features
+
+    def build(self):
+        query_tokens = ["b={}".format(f.value) for f in self.features]
+        return "&".join(query_tokens)
