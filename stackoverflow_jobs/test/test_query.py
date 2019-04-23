@@ -9,7 +9,7 @@ from unittest import TestCase
 from stackoverflow_jobs.src.query import Query
 from stackoverflow_jobs.src.filters import (Description, Location, Remote,
                                             Technologies, Salary, Equity,
-                                            ExperienceLevel, Role)
+                                            ExperienceLevel, Role, JobType)
 
 
 class TestQuery(TestCase):
@@ -78,7 +78,10 @@ class TestQuery(TestCase):
         self.assertRaiss(RuntimeError, Role, roles)
 
     def test_queryWithJobType(self):
-        self.skipTest("To be implemented")
+        types = [JobType.Type.PERMANENT,
+                 JobType.Type.CONTRACT, JobType.Type.INTERNSHIP]
+        q = Query() + JobType(types)
+        self.assertIn("j=permanent&j=contract&j=internship", q.build_query())
 
     def test_queryWithJobFeatures(self):
         self.skipTest("To be implemented")

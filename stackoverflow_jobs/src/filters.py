@@ -146,3 +146,18 @@ class Role(Filter):
     def build(self):
         query_tokens = ["dr={}".format(r.value) for r in self.roles]
         return "&".join(query_tokens)
+
+
+class JobType(Filter):
+
+    class Type(Enum):
+        PERMANENT = "permanent"
+        CONTRACT = "contract"
+        INTERNSHIP = "internship"
+
+    def __init__(self, types):
+        self.types = types
+
+    def build(self):
+        query_tokens = ["j={}".format(t.value) for t in self.types]
+        return "&".join(query_tokens)
