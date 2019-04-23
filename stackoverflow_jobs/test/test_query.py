@@ -10,7 +10,8 @@ from stackoverflow_jobs.src.query import Query
 from stackoverflow_jobs.src.filters import (Description, Location, Remote,
                                             Technologies, Salary, Equity,
                                             ExperienceLevel, Role, JobType,
-                                            JobFeature, Companies, Industry)
+                                            JobFeature, Companies, Industry,
+                                            VisaSponsor, Relocation)
 
 
 class TestQuery(TestCase):
@@ -58,6 +59,14 @@ class TestQuery(TestCase):
     def test_queryWithEquityCompensation(self):
         q = Query() + Equity()
         self.assertIn("e=true", q.build_query())
+
+    def test_queryWithVisa(self):
+        q = Query() + VisaSponsor()
+        self.assertIn("v=true", q.build_query())
+
+    def test_queryWithRelocation(self):
+        q = Query() + Relocation()
+        self.assertIn("t=true", q.build_query())
 
     def test_queryWithPerks(self):
         self.skipTest("To be implemented")

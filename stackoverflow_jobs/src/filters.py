@@ -280,3 +280,15 @@ class Industry(Filter):
         query_tokens = ["i={}".format(i) for i in industry_tokens]
 
         return "&".join(query_tokens)
+
+
+class VisaSponsor(Filter):
+
+    def build(self):
+        return "v=true"
+
+
+class Relocation(Filter):
+
+    def build(self):
+        return "t=true"
