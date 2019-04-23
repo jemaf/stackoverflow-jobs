@@ -6,12 +6,12 @@
 
 from unittest import TestCase
 
-from stackoverflow_jobs.src.query import Query
-from stackoverflow_jobs.src.filters import (Description, Location, Remote,
-                                            Technologies, Salary, Equity,
-                                            ExperienceLevel, Role, JobType,
-                                            JobFeature, Companies, Industry,
-                                            VisaSponsor, Relocation, Perk)
+from stackoverflow_jobs.query import Query
+from stackoverflow_jobs.filters import (Description, Location, Remote,
+                                        Technologies, Salary, Equity,
+                                        ExperienceLevel, Role, JobType,
+                                        JobFeature, Companies, Industry,
+                                        VisaSponsor, Relocation, Perk)
 
 
 class TestQuery(TestCase):
