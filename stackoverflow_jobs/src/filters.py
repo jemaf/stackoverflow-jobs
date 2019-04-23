@@ -118,3 +118,31 @@ class ExperienceLevel(Filter):
         if self.max:
             query_tokens.append("mxs={}".format(self.max.value))
         return "&".join(query_tokens)
+
+
+class Role(Filter):
+
+    class Type(Enum):
+        BACKEND = "BackendDeveloper"
+        DATABASE = "DatabaseAdministrator"
+        DATASCIENCE = "DataScientist"
+        DESIGN = "Designer"
+        DESKTOP = "DesktopDeveloper"
+        DEVOPS = "DevOpsDeveloper"
+        EMBEDDED = "EmbeddedDeveloper"
+        FRONTEND = "FrontendDeveloper"
+        FULLSTACK = "FullStackDeveloper"
+        GAME = "GameDeveloper"
+        MOBILE = "MobileDeveloper"
+        PRODUCT = "ProductManager"
+        SYSADMIN = "SystemAdministrator"
+        TEST = "QATestDeveloper"
+
+    def __init__(self, roles):
+        if len(roles) > 5:
+            raise RuntimeError("Query supports five roles at most")
+        self.roles = roles
+
+    def build(self):
+        query_tokens = ["dr={}".format(r.value) for r in self.roles]
+        return "&".join(query_tokens)

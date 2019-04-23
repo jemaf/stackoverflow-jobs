@@ -9,7 +9,7 @@ from unittest import TestCase
 from stackoverflow_jobs.src.query import Query
 from stackoverflow_jobs.src.filters import (Description, Location, Remote,
                                             Technologies, Salary, Equity,
-                                            ExperienceLevel)
+                                            ExperienceLevel, Role)
 
 
 class TestQuery(TestCase):
@@ -67,7 +67,15 @@ class TestQuery(TestCase):
         self.assertIn("c=brl&ms=Student&mxs=Senior", q.build_query())
 
     def test_queryWithRoles(self):
-        self.skipTest("To be implemented")
+        roles = [Role.Type.BACKEND, Role.Type.FRONTEND]
+        q = Query() + Role(roles)
+        self.assertIn("dr=BackendDeveloper&dr=FrontendDeveloper",
+                      q.build_query())
+
+    def test_queryCannotHaveMoreThanFiveRoles(self):
+        roles = [Role.Type.BACKEND, Role.Type.FRONTEND, Role.Type.DATABASE,
+                 Role.Type.DESIGN, Role.Type.EMBEDDED, Role.Type.GAME]
+        self.assertRaiss(RuntimeError, Role, roles)
 
     def test_queryWithJobType(self):
         self.skipTest("To be implemented")
