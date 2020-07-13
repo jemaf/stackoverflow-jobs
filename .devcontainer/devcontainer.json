@@ -1,0 +1,17 @@
+{
+	"name": "StackOverflow Jobs",
+	"dockerComposeFile": [
+		"..\\docker-compose.yml"
+	],
+	"service": "library",
+	"workspaceFolder": "/workspace",
+	"settings": {
+		"terminal.integrated.shell.linux": null
+	},
+	"extensions": [
+		"ms-python.python",
+		"donjayamanne.python-extension-pack",
+		"eamodio.gitlens",
+		"ms-azuretools.vscode-docker"
+	]
+}
