@@ -10,8 +10,9 @@ from .filters import Filter
 
 class Query:
 
-    def __init__(self):
+    def __init__(self, timeout=60):
         self.filters = []
+        self.timeout = timeout
 
     def __add__(self, filter):
         if isinstance(filter, Filter):
@@ -27,6 +28,7 @@ class Query:
             q += "?" + "&".join([f.build() for f in self.filters])
         return q
 
-    def execute(self):
+    def execute(self, timeout=None):
+        query_timeout = timeout or self.timeout
         url = self.build_query()
-        return requests.get(url).content
+        return requests.get(url, timeout=query_timeout).content

@@ -31,6 +31,23 @@ After you build your query, call `execute()` to fetch the data:
 data = q.execute()
 ```
 
+By default, queries requests are timed out after 60 seconds. You can change the
+timeout value in two different ways: 
+
+1. `Query(timeout)`: Every query will end up after the specified `timeout`.
+1. `execute(timeout)`: Set up timeout for a specific query execution.
+
+```python
+q1 = Query()   # Timeout default value: 60 seconds
+q2 = Query(25) # Timeout custom value: 25 seconds
+
+q1.execute()  # timeout: 60 seconds
+q2.execute()  # timeout: 25 seconds
+
+q1.execute(5) # timeout: 5 seconds
+q2.execute(5) # timeout: 5 seconds
+```
+
 **Important note:** The library queries Stack Overflow Jobs RSS feed. This
 means that you need to parse the XML afterwards.
 

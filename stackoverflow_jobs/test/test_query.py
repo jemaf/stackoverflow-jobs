@@ -16,6 +16,14 @@ from stackoverflow_jobs.filters import (Description, Location, Remote,
 
 class TestQuery(TestCase):
 
+    def test_queryWithDefaultTimeout(self):
+        q = Query()
+        self.assertEquals(q.timeout, 60)
+
+    def test_queryWithCustomTimeout(self):
+        q = Query(90)
+        self.assertEquals(q.timeout, 90)
+
     def test_queryWithoutParameters(self):
         q = Query()
         self.assertEquals(q.build_query(),
