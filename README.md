@@ -1,3 +1,5 @@
+**This project is archived since Stack Overflow Jobs no longer exists.**
+
 # stackoverflow-jobs
 
 Simple wrapper for crawling jobs data at Stack Overflow Jobs portal.
